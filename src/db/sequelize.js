@@ -5,16 +5,4 @@ const sequelize = new Sequelize('mydb', 'root', null, {
     dialect: 'mysql'
 })
 
-const testConnection = async () => {
-    try {
-        await sequelize.authenticate()
-        console.log('Connection Successful')
-    }
-    catch (e) {
-        console.log(e)
-    }
-}
-
-testConnection()
-
 module.exports = sequelize

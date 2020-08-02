@@ -2,6 +2,7 @@ const express = require('express')
 const router = new express.Router()
 const User = require('../models/user')
 
+// Get all users
 router.get('/users', async (req, res) => {
     try {
         const userData = await User.findAll()
@@ -13,6 +14,7 @@ router.get('/users', async (req, res) => {
     }
 })
 
+// Get user by id
 router.get('/users/:id', async (req, res) => {
     try {
         const user = await User.findOne({
@@ -20,14 +22,19 @@ router.get('/users/:id', async (req, res) => {
                 userId: req.params.id
             }
         })
-        console.log(user)
-        res.status(200).send(user.dataValues)
+        if (user) {
+            res.status(200).send(user.dataValues)
+        }
+        else {
+            res.status(404).send()
+        }
     }
     catch (error) {
-        res.status(404).send()
+        res.status(500).send()
     }
 })
 
+// Post a user
 router.post('/users', async (req, res) => {
     try {
         await User.create(req.body)
@@ -38,19 +45,26 @@ router.post('/users', async (req, res) => {
     }
 })
 
+// Update a user by id
 router.patch('/users/:id', async (req, res) => {
     try {
-        await User.update(req.body, {
+        const updatedUser = await User.update(req.body, {
             where: {
                 userId: req.params.id
             }
         })
-        res.status(200).send()
+        if (updatedUser[0]) {
+            res.status(200).send()
+        }
+        else {
+            res.status(404).send()
+        }
     } catch (error) {
-        res.status(400).send()
+        res.status(500).send()
     }
 })
 
+// Delete a user by id
 router.delete('/users/:id', async (req, res) => {
     try {
         const deletedUser = await User.destroy({

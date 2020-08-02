@@ -4,7 +4,8 @@ const sequelize = require('../db/sequelize')
 const User = sequelize.define('User', {
     userId: {
         type: DataTypes.INTEGER,
-        unique: true
+        unique: true,
+        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
@@ -12,7 +13,6 @@ const User = sequelize.define('User', {
     },
     age: {
         type: DataTypes.INTEGER,
-        allowNull: true
     }
 })
 
