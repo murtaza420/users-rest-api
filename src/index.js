@@ -1,5 +1,5 @@
 const express = require('express')
-require('./db/sequelize')
+require('./db/initialize')
 const userRouter = require('./routers/user')
 
 const app = express()

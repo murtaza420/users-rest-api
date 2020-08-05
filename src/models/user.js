@@ -16,11 +16,4 @@ const User = sequelize.define('User', {
     }
 })
 
-const createTable = async () => {
-    await User.sync()
-    console.log('User table connected')
-}
-
-createTable()
-
 module.exports = User
